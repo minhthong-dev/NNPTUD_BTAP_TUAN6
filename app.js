@@ -27,7 +27,7 @@ app.listen(3636, () => {
 
 
 
-mongoose.connect('mongodb+srv://thongtg7:Q17CAoxflRzRRhBf@cluster0.y4jiq.mongodb.net/NNPTUD_MOI?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://localhost:27017/NNPTUD_MOI');
 mongoose.connection.on('connected', function () {
   console.log("connected");
 })

@@ -18,6 +18,10 @@ router.post('/register', RegisterValidator, handleResultValidator, async functio
         message: "dang ki thanh cong"
     })
 });
+const fs = require('fs');
+const path = require('path');
+const privateKey = fs.readFileSync(path.join(__dirname, '../jwtRS256.key'), 'utf8');
+
 router.post('/login', async function (req, res, next) {
     let { username, password } = req.body;
     let getUser = await userController.FindByUsername(username);
@@ -32,7 +36,8 @@ router.post('/login', async function (req, res, next) {
             await userController.SuccessLogin(getUser);
             let token = jwt.sign({
                 id: getUser._id
-            }, "secret", {
+            }, privateKey, {
+                algorithm: 'RS256',
                 expiresIn: '30d'
             })
             res.send(token)
